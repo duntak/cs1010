@@ -7,6 +7,7 @@
 #include <stdio.h>
 
 int main(void) {
+	
 	int hours, minutes;
 	float temperature;  // Temperature in freezer
 	float t;	//Time in Hour and Minutes
