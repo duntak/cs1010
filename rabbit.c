@@ -24,33 +24,29 @@ int main(void) {
 // Counts the minimum number of jumps the rabbit needs
 // to take to get to the other side of the river.
 // Precond: size > 0
+
 int countJumps(int rocks[], int size) {
+	int rock_pos = 0, distance = 0, countJumps = 0, i;
 
-	int start_pos = 0, target_pos = 0, difference, i, countJumps = 0;
-	printf("Start\n");
-	for(i=0;i<size;i++){
-		difference = rocks[i] - start_pos;
-		//Reach the last and difference less than 50
-		if(i == size -1 && difference <= 50){
-
-			countJumps++;
-			return countJumps;
-		}
-
-
-		if( difference > 50){
-			target_pos = rocks[i-1];
-			printf("Target_Pos = %d\n",target_pos);
-			//Start and Target becomes the same, no place to go
-			if(target_pos == start_pos){
-				return -1;
+	while(rocks[rock_pos] - distance <= 50){
+		//Update rock_pos to i
+		for(i = rock_pos;i < size; i++){
+			//After find the next rock, update information and then break from the loop
+			if(rocks[i] - distance > 50){
+				rock_pos = i;
+				distance = rocks[i-1];
+				countJumps++;
+				break;	
 			}
-			i--;
-			start_pos = target_pos;
-			countJumps++;
+			//The only way to win this game is to reach the last rock, stop and return countJumps
+			if(rocks[i] == rocks[size - 1]){
+				countJumps++;
+				return countJumps;
+			}
 		}
+
 	}
 
-	return countJumps; // this is just a stub; replace it with the correct value
+	return -1; // this is just a stub; replace it with the correct value
 }
 
