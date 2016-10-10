@@ -25,9 +25,18 @@ int main(void) {
 // to take to get to the other side of the river.
 // Precond: size > 0
 
-int countJumps(int rocks[], int size) {
-	int rock_pos = 0, distance = 0, countJumps = 0, i;
+/*
+Lesson learnt
+The only way for the rabbit to jump is when the Next_Rock - Current_Rock is less than or equal to 50
+How to find Next_Rock: Loop from NEXT_Rock_Position to size - 1, when Next_Rock - Current_Rock is larger than 50
+We can set Next_Rock_Pos, set the new Current_Rock  and update countJump
+Then We need to break from the loop to check for next jump
+*/
 
+int countJumps(int rocks[], int size) {
+	//rock_pos is actually next rock postion, distance is the current rock 
+	int rock_pos = 0, distance = 0, countJumps = 0, i;
+	//Next rock - current rock Valid or non valid
 	while(rocks[rock_pos] - distance <= 50){
 		//Update rock_pos to i
 		for(i = rock_pos;i < size; i++){
