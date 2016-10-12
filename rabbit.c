@@ -80,4 +80,4 @@ int countJumps(int rocks[], int size) {
 
 	return -1; // this is just a stub; replace it with the correct value
 }
-
+ 
