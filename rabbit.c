@@ -11,12 +11,20 @@
 int countJumps(int [], int);
 
 int main(void) {
-	int num_rocks;            // including opposite bank
+	//int num_rocks = 10;            // including opposite bank
+	//int rocks[20] = {6, 10, 19, 23, 29, 30, 39, 41, 44, 48 };
+	int num_rocks,i;            // including opposite bank
 	int rocks[20];
-	int steps = countJumps(rocks,num_rocks);
-	printf("Tesing\n");
-	printf("Enter number of rocks: %d",steps);
+	
+	printf("Enter number of rocks:");
+
 	scanf("%d", &num_rocks);
+		for(i = 0; i < num_rocks; i++){
+		scanf("%d",&rocks[i]);
+	}
+
+	int steps = countJumps(rocks,num_rocks);
+	printf("Steps are %d\n",steps);
 
 	return 0;
 }
@@ -26,29 +34,43 @@ int main(void) {
 // Precond: size > 0
 
 /*
-Lesson learnt
-The only way for the rabbit to jump is when the Next_Rock - Current_Rock is less than or equal to 50
-How to find Next_Rock: Loop from NEXT_Rock_Position to size - 1, when Next_Rock - Current_Rock is larger than 50
-We can set Next_Rock_Pos, set the new Current_Rock  and update countJump
-Then We need to break from the loop to check for next jump
+The first rock distance is 0
+
+rocks[next] - distance <= 50
+	Loop to Find next rock position
+		update current position using next position - 1
+		update distance using rocks[current]
+		update jump++
+		break from loop
+	End Loop
+
+	if distance == rocks[size-1] 
+		update jump++
+		return REACH THE END
+	END IF
+Continue Check rocks[next] - distance <= 50
+
+If rocks[next]- distance > 50
+	No valid jump
+	return -1
+End if
 */
 
 int countJumps(int rocks[], int size) {
-	//rock_pos is actually next rock postion, distance is the current rock 
+
 	int rock_pos = 0, distance = 0, countJumps = 0, i;
-	//Next rock - current rock Valid or non valid
+
 	while(rocks[rock_pos] - distance <= 50){
+
 		//Update rock_pos to i
 		for(i = rock_pos;i < size; i++){
-			//After find the next rock, update information and then break from the loop
+
 			if(rocks[i] - distance > 50){
 				rock_pos = i;
 				distance = rocks[i-1];
 				countJumps++;
-				break;	
-			}
-			//The only way to win this game is to reach the last rock, stop and return countJumps
-			if(rocks[i] == rocks[size - 1]){
+				break;
+			}else if(rocks[i] == rocks[size - 1]){
 				countJumps++;
 				return countJumps;
 			}
